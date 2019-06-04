@@ -160,6 +160,8 @@ module.exports = {
     (neutrino) => {
       neutrino.config.resolve
         .alias.set('taskcluster-ui', resolve(__dirname, 'src/'));
+      neutrino.config.resolve
+        .alias.set('react-dom', '@hot-loader/react-dom');
     },
     ['@neutrinojs/karma', {
       plugins: [

@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Fragment } from 'react';
 import { BrowserRouter, Switch } from 'react-router-dom';
 import { object, arrayOf } from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
@@ -6,7 +6,7 @@ import RouteWithProps from '../components/RouteWithProps';
 import ErrorPanel from '../components/ErrorPanel';
 import { route } from '../utils/prop-types';
 
-@withStyles(theme => ({
+const styles = theme => ({
   '@global': {
     [[
       'input:-webkit-autofill',
@@ -41,31 +41,27 @@ import { route } from '../utils/prop-types';
       ...theme.mixins.highlight,
     },
   },
-}))
-export default class Main extends Component {
-  static propTypes = {
-    error: object,
-    routes: arrayOf(route).isRequired,
-  };
+});
+const MainHooks = ({ error, routes }) => (
+  <Fragment>
+    <ErrorPanel error={error} />
+    <BrowserRouter>
+      <Switch>
+        {routes.map(({ routes, ...props }) => (
+          <RouteWithProps key={props.path || 'not-found'} {...props} />
+        ))}
+      </Switch>
+    </BrowserRouter>
+  </Fragment>
+);
 
-  static defaultProps = {
-    error: null,
-  };
+MainHooks.propTypes = {
+  error: object,
+  routes: arrayOf(route).isRequired,
+};
 
-  render() {
-    const { error, routes } = this.props;
+MainHooks.defaultProps = {
+  error: null,
+};
 
-    return (
-      <Fragment>
-        <ErrorPanel fixed error={error} />
-        <BrowserRouter>
-          <Switch>
-            {routes.map(({ routes, ...props }) => (
-              <RouteWithProps key={props.path || 'not-found'} {...props} />
-            ))}
-          </Switch>
-        </BrowserRouter>
-      </Fragment>
-    );
-  }
-}
+export default withStyles(styles)(MainHooks);
