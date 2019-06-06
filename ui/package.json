@@ -74,7 +74,6 @@
     "react": "^16.8.6",
     "react-apollo": "^2.5.5",
     "react-copy-to-clipboard": "^5.0.1",
-    "react-dom": "^16.8.6",
     "react-fout-stager": "^3.0.0",
     "react-ga": "^2.5.3",
     "react-helmet": "^5.2.1",
