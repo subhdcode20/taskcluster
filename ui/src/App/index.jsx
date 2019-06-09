@@ -17,7 +17,7 @@ import {
 import { CachePersistor } from 'apollo-cache-persist';
 import ReactGA from 'react-ga';
 import { init as initSentry } from '@sentry/browser';
-import { MuiThemeProvider } from '@material-ui/core/styles';
+import { ThemeProvider } from '@material-ui/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 // import ErrorBoundary from 'react-error-boundary';
 import FontStager from '../components/FontStager';
@@ -170,11 +170,11 @@ const AppHooks = ({ routes }) => {
     <ApolloProvider client={apolloClient}>
       <AuthContext.Provider value={auth}>
         <ToggleThemeContext.Provider value={toggleTheme}>
-          <MuiThemeProvider theme={themeState}>
+          <ThemeProvider theme={themeState}>
             <FontStager />
             <CssBaseline />
             <Main key={auth.user} routes={routes} error={error} />
-          </MuiThemeProvider>
+          </ThemeProvider>
         </ToggleThemeContext.Provider>
       </AuthContext.Provider>
     </ApolloProvider>

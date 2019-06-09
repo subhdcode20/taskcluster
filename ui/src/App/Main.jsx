@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import { BrowserRouter, Switch } from 'react-router-dom';
 import { object, arrayOf } from 'prop-types';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/styles';
 import RouteWithProps from '../components/RouteWithProps';
 import ErrorPanel from '../components/ErrorPanel';
 import { route } from '../utils/prop-types';
@@ -43,18 +43,21 @@ const useStyles = makeStyles(theme => ({
     },
   })
 );
-const MainHooks = ({ error, routes }) => (
-  <Fragment>
-    <ErrorPanel error={error} />
-    <BrowserRouter>
-      <Switch>
-        {routes.map(({ routes, ...props }) => (
-          <RouteWithProps key={props.path || 'not-found'} {...props} />
-        ))}
-      </Switch>
-    </BrowserRouter>
-  </Fragment>
-);
+const MainHooks = ({ error, routes }) => {
+  useStyles();
+  return (
+    <Fragment>
+      <ErrorPanel error={error} />
+      <BrowserRouter>
+        <Switch>
+          {routes.map(({ routes, ...props }) => (
+            <RouteWithProps key={props.path || 'not-found'} {...props} />
+          ))}
+        </Switch>
+      </BrowserRouter>
+    </Fragment>
+  )
+};
 
 MainHooks.propTypes = {
   error: object,
