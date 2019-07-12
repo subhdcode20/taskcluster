@@ -1,12 +1,12 @@
 import React, { Fragment } from 'react';
 import { BrowserRouter, Switch } from 'react-router-dom';
 import { object, arrayOf } from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import RouteWithProps from '../components/RouteWithProps';
 import ErrorPanel from '../components/ErrorPanel';
 import { route } from '../utils/prop-types';
 
-const styles = theme => ({
+const useStyles = makeStyles(theme => ({
   '@global': {
     [[
       'input:-webkit-autofill',
@@ -41,7 +41,8 @@ const styles = theme => ({
       ...theme.mixins.highlight,
     },
   },
-});
+}), { withTheme: true }
+);
 const MainHooks = ({ error, routes }) => (
   <Fragment>
     <ErrorPanel error={error} />
@@ -64,4 +65,4 @@ MainHooks.defaultProps = {
   error: null,
 };
 
-export default withStyles(styles)(MainHooks);
+export default MainHooks;
